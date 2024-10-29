@@ -41,7 +41,7 @@
 		<module>maria-output-adapter</module>
 		<module>mongo-output-adapter</module>
 		<module>rest-input-adapter</module>
-		<!-- <module>cli-input-adapter</module> -->
+		<module>cli-input-adapter</module>
 	</modules>
 	<dependencies>
 		<dependency>

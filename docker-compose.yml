@@ -29,7 +29,7 @@ services:
   maria-db:
     image: mariadb:latest
     ports:
-      - "3306:3306"
+      - "3307:3307"
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: personapp
