@@ -1,0 +1,35 @@
+#Agregar network, volumenes, entrpoints (guiarnos del otro), scripts...., corregir variables de entorno (esscoger si usar )
+
+services:
+  rest-service:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Ruta al Dockerfile multietapa
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo-db
+      - maria-db
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo-db:27017/personapp
+      SPRING_DATASOURCE_URL: jdbc:mariadb://maria-db:3306/personapp
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: example
+      APP_DEBUG_LEVEL: INFO
+
+  # Servicio MongoDB
+  mongo-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: personapp
+
+  # Servicio MariaDB
+  maria-db:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: personapp
