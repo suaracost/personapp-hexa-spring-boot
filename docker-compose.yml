@@ -1,4 +1,4 @@
-#Agregar network, volumenes, entrpoints (guiarnos del otro), scripts...., corregir variables de entorno (esscoger si usar )
+version: '3.8'
 
 services:
   rest-service:
@@ -29,7 +29,7 @@ services:
   maria-db:
     image: mariadb:latest
     ports:
-      - "3307:3307"
+      - "3307:3306"  # Mapear el puerto del contenedor (3306) al puerto del host (3307)
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: personapp
