@@ -47,11 +47,11 @@ services:
       - "3307:3306"  # Mapear el puerto del contenedor (3306) al puerto del host (3307)
     environment:
       MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: personapp
+      MYSQL_DATABASE: persona_db
     volumes:
       - maria_data:/var/lib/mysql
-      - ./persona_ddl_maria.sql:/docker-entrypoint-initdb.d/persona_ddl_maria.sql
-      - ./persona_dml_maria.sql:/docker-entrypoint-initdb.d/persona_dml_maria.sql
+      - ./scripts/persona_ddl_maria.sql:/docker-entrypoint-initdb.d/persona_ddl_maria.sql
+      - ./scripts/persona_dml_maria.sql:/docker-entrypoint-initdb.d/persona_dml_maria.sql
     networks:
       - app_network  
 
