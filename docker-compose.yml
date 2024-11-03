@@ -11,8 +11,8 @@ services:
       - mongo-db
       - maria-db
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongo-db:27017/persona_db
-      SPRING_DATASOURCE_URL: jdbc:mariadb://maria-db:3306/personapp
+      SPRING_DATA_MONGODB_URI: mongodb://persona_db:persona_db@mongo-db:27017/persona_db?authSource=admin
+      SPRING_DATASOURCE_URL: jdbc:mariadb://maria-db:3306/persona_db
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: example
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
@@ -35,8 +35,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: persona_db
     volumes:
       - mongo_data:/data/db
-      - ./persona_ddl_mongo.js:/docker-entrypoint-initdb.d/persona_ddl_mongo.js:ro
-      - ./persona_dml_mongo.js:/docker-entrypoint-initdb.d/persona_dml_mongo.js:ro
+      - ./scripts/persona_ddl_mongo.js:/docker-entrypoint-initdb.d/persona_ddl_mongo.js
+      - ./scripts/persona_dml_mongo.js:/docker-entrypoint-initdb.d/persona_dml_mongo.js
     networks:
       - app_network
 
