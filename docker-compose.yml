@@ -4,7 +4,7 @@ services:
   rest-service:
     build:
       context: .
-      dockerfile: Dockerfile  # Ruta al Dockerfile multietapa
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
@@ -16,13 +16,12 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: example
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
       APP_DEBUG_LEVEL: INFO
     networks:
       - app_network
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./entrypoint.sh:/entrypoint.sh
+    restart: always
 
   # Servicio MongoDB
   mongo-db:
