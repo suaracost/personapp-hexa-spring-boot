@@ -7,7 +7,7 @@ import java.util.List;
 @Port
 public interface ProfessionOutputPort {
     public Profession save(Profession profession);
-    public Boolean delete(Integer id);
+    public Boolean delete(Integer identification);
     public List<Profession> find();
-    public Profession findById(Integer id);
+    public Profession findById(Integer identification);
 }

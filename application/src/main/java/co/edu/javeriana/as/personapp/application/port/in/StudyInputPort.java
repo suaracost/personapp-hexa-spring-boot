@@ -10,13 +10,13 @@ import java.util.List;
 
 @Port
 public interface StudyInputPort {
-    public void setPersintence(StudyOutputPort studyPersistence);
-    public Study create(Study study);
-    public Study edit(Integer professionID, Integer personID, Study study) throws NoExistException;
-    public Boolean drop(Integer professionID, Integer personID) throws NoExistException;
-    public List<Study> findAll();
-    public Study findOne(Integer professionID, Integer personID) throws NoExistException;
-    public Integer count();
-    public Person getPerson(Integer professionID, Integer personID) throws NoExistException;
+	public void setPersistence(StudyOutputPort studyPersistence);
+	public Study create(Study study);
+	public Study edit(Integer professionID, Integer personID, Study study) throws NoExistException;
+	public Boolean drop(Integer professionID, Integer personID) throws NoExistException;
+	public List<Study> findAll();
+	public Study findOne(Integer professionID, Integer personID) throws NoExistException;
+	public Integer count();
+	public Person getPerson(Integer professionID, Integer personID) throws NoExistException;
     public Profession getProfession(Integer professionID, Integer personID) throws NoExistException;
 }
