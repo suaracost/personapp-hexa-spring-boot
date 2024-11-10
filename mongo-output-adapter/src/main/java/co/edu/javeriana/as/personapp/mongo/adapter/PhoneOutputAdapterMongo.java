@@ -1,6 +1,6 @@
 package co.edu.javeriana.as.personapp.mongo.adapter;
 
-import co.edu.javeriana.as.personapp.application.port.out.PersonOutputPort;
+import co.edu.javeriana.as.personapp.application.port.out.PhoneOutputPort;
 import co.edu.javeriana.as.personapp.common.annotations.Adapter;
 import co.edu.javeriana.as.personapp.domain.Phone;
 import co.edu.javeriana.as.personapp.mongo.document.TelefonoDocument;
@@ -23,16 +23,40 @@ public class PhoneOutputAdapterMongo implements PhoneOutputPort {
     @Autowired
     private TelefonoMapperMongo telefonoMapperMongo;
 
+
     @Override
     public Phone save(Phone phone) {
         log.debug("Into save on Adapter MongoDB");
         try {
             TelefonoDocument persistedTelefono = telefonoRepositoryMongo.save(telefonoMapperMongo.fromDomainToAdapter(phone));
             return telefonoMapperMongo.fromAdapterToDomain(persistedTelefono);
-        } catch (MongoWriteException e) {
+        }catch(MongoWriteException e)
+        {
             log.warn(e.getMessage());
             return phone;
         }
     }
-    
+
+    @Override
+    public Boolean delete(String number) {
+        log.debug("Into delete on Adapter MongoDB");
+        telefonoRepositoryMongo.deleteById(number);
+        return telefonoRepositoryMongo.findById(number).isEmpty();
+    }
+
+    @Override
+    public List<Phone> find() {
+        log.debug("Into find on Adapter MongoDB");
+        return telefonoRepositoryMongo.findAll().stream().map(telefonoMapperMongo::fromAdapterToDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Phone findById(String number) {
+        log.debug("Into findById on Adapter MongoDB");
+        if (telefonoRepositoryMongo.findById(number).isEmpty())
+            return null;
+
+        return telefonoMapperMongo.fromAdapterToDomain(telefonoRepositoryMongo.findById(number).get());
+    }
 }
