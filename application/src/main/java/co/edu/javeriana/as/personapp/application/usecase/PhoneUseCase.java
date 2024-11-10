@@ -1,13 +1,14 @@
 package co.edu.javeriana.as.personapp.application.usecase;
-
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import co.edu.javeriana.as.personapp.application.port.in.PhoneInputPort;
 import co.edu.javeriana.as.personapp.application.port.out.PhoneOutputPort;
 import co.edu.javeriana.as.personapp.common.annotations.UseCase;
 import co.edu.javeriana.as.personapp.common.exceptions.NoExistException;
-import co.edu.javeriana.as.personapp.domain.Phone;
 import co.edu.javeriana.as.personapp.domain.Person;
+import co.edu.javeriana.as.personapp.domain.Phone;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,10 +22,10 @@ public class PhoneUseCase implements PhoneInputPort {
     }
 
     @Override
-    public void setPersintence(PhoneOutputPort phonePersistence) {
-        this.phonePersistence=phonePersistence;
+    public void setPersistence(PhoneOutputPort phonePersistence) {
+        this.phonePersistence = phonePersistence;
     }
-    
+
     @Override
     public Phone create(Phone phone) {
         log.debug("Into create on Application Domain");
@@ -34,10 +35,10 @@ public class PhoneUseCase implements PhoneInputPort {
     @Override
     public Phone edit(String number, Phone phone) throws NoExistException {
         Phone oldPhone = phonePersistence.findById(number);
-        if (oldPhone != null)
+        if(oldPhone != null)
             return phonePersistence.save(phone);
-        throw new NoExistException(
-                "The phone with number " + number + " does not exist into db, cannot be edited");
+
+        throw new NoExistException("The phone with number " + number + " does not exist into db, cannot be edited");
     }
 
     @Override
@@ -50,33 +51,32 @@ public class PhoneUseCase implements PhoneInputPort {
     }
 
     @Override
-    public List<Phone> findAll(){
-        log.info("Output: " + phonePersistence.getClass());
+    public List<Phone> findAll() {
+        log.info("Output: "+ phonePersistence.getClass());
         return phonePersistence.find();
     }
 
     @Override
     public Phone findOne(String number) throws NoExistException {
-        Phone oldPhone = phonePersistence.findById(number);
-        if (oldPhone != null)
+        Phone oldPhone= phonePersistence.findById(number);
+        if(oldPhone!=null)
             return oldPhone;
 
-        throw new NoExistException(
-                "The phone with number " + number + " does not exist into db, cannot be found");
+        throw new NoExistException("The phone with number " + number + " does not exist into db, cannot be found");
     }
 
     @Override
-    public Integer count(){
+    public Integer count() {
         return findAll().size();
     }
 
     @Override
     public Person getPerson(String number) throws NoExistException {
         Phone oldPhone = phonePersistence.findById(number);
-        if (oldPhone != null)
+        if(oldPhone!=null)
             return oldPhone.getOwner();
 
-        throw new NoExistException("The phone with number " + number + " does not exist into db, cannot be getting person");
+        throw new NoExistException("The phone with number " + number+" does not exist into db, cannot be getting its owner");
     }
-
 }
+    

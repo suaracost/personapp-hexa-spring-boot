@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonaRequest {
-	private String dni;
-	private String firstName;
-	private String lastName;
-	private String age;
-	private String gender;
+public class TelefonoRequest {
+	private String number;
+	private String company;
 	private String database;
+    private String dueno;
 }
