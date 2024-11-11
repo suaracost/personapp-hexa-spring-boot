@@ -4,6 +4,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import co.edu.javeriana.as.personapp.mongo.document.EstudiosDocument;
 
-public interface EstudioRepositoryMongo extends MongoRepository<EstudiosDocument, Integer> {
+public interface EstudioRepositoryMongo extends MongoRepository<EstudiosDocument, String> {
     EstudiosDocument findByPrimaryProfesionAndPrimaryPersona(Integer professionID, Integer personID);
 }
