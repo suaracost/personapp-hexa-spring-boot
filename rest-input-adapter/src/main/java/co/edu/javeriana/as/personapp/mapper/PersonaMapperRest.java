@@ -22,7 +22,7 @@ public class PersonaMapperRest {
 	
 	public PersonaResponse fromDomainToAdapterRest(Person person, String database) {
 		return new PersonaResponse(
-				person.getIdentification()+"", 
+				person.getIdentification(), 
 				person.getFirstName(), 
 				person.getLastName(), 
 				person.getAge()+"", 
@@ -34,7 +34,7 @@ public class PersonaMapperRest {
 	public Person fromAdapterToDomain(PersonaRequest request) {
 		log.info("Into fromAdapterToDomain");
         Person person = new Person();
-        person.setIdentification(Integer.parseInt(request.getDni()));
+        person.setIdentification(request.getDni());
         person.setFirstName(request.getFirstName());
         person.setLastName(request.getLastName());
         person.setAge(Integer.parseInt(request.getAge()));

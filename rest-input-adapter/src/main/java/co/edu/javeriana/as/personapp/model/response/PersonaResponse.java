@@ -6,7 +6,7 @@ public class PersonaResponse extends PersonaRequest{
 	
 	private String status;
 	
-	public PersonaResponse(String dni, String firstName, String lastName, String age, String sex, String database, String status) {
+	public PersonaResponse(int dni, String firstName, String lastName, String age, String sex, String database, String status) {
 		super(dni, firstName, lastName, age, sex, database);
 		this.status = status;
 	}

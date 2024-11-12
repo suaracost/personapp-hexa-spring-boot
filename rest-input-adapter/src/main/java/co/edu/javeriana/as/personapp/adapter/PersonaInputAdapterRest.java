@@ -95,7 +95,7 @@ public class PersonaInputAdapterRest {
             }
         } catch (InvalidOptionException | NoExistException e) {
             log.warn(e.getMessage());
-            return new PersonaResponse(idInteger.toString(), "", "", "", "", database,
+            return new PersonaResponse(idInteger, "", "", "", "", database,
                     "Error: Person not found");
         }
     }
@@ -105,11 +105,11 @@ public class PersonaInputAdapterRest {
         try {
             setPersonOutputPortInjection(database);
             Boolean eliminado = personInputPort.drop(idInteger);
-            return new PersonaResponse(idInteger.toString(), "", "", "", "", database,
+            return new PersonaResponse(idInteger, "", "", "", "", database,
                     eliminado ? "Deleted" : "Failed to Delete");
         } catch (InvalidOptionException | NoExistException e) {
             log.warn(e.getMessage());
-            return new PersonaResponse(idInteger.toString(), "", "", "", "", database,
+            return new PersonaResponse(idInteger, "", "", "", "", database,
                     "Error: Person not found or invalid database");
         }
     }
@@ -118,8 +118,7 @@ public class PersonaInputAdapterRest {
 	public PersonaResponse actualizarPersona(PersonaRequest request) {
         try {
             setPersonOutputPortInjection(request.getDatabase());
-            Person person = personInputPort.edit(Integer.parseInt(request.getDni()),
-                    personaMapperRest.fromAdapterToDomain(request));
+            Person person = personInputPort.edit(request.getDni(), personaMapperRest.fromAdapterToDomain(request));
             if (request.getDatabase().equalsIgnoreCase(DatabaseOption.MARIA.toString())) {
                 return personaMapperRest.fromDomainToAdapterRestMaria(person);
             } else {

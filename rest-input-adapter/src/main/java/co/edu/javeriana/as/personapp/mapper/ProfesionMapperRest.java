@@ -21,7 +21,7 @@ public class ProfesionMapperRest {
 	
 	public ProfesionResponse fromDomainToAdapterRest(Profession profession, String database) {
 		return new ProfesionResponse(
-				profession.getIdentification()+"",
+				profession.getIdentification(),
 				profession.getName(),
 				profession.getDescription(),
 				database,
@@ -31,7 +31,7 @@ public class ProfesionMapperRest {
 	public Profession fromAdapterToDomain(ProfesionRequest request) {
 		log.info("Into fromAdapterToDomain");
         Profession profession  = new Profession();
-		profession.setIdentification(Integer.parseInt(request.getIdentification()));
+		profession.setIdentification(request.getIdentification());
 		profession.setName(request.getName());
 		profession.setDescription(request.getDescription());
         

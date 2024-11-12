@@ -52,14 +52,14 @@ public class EstudioControllerV1 {
 
     @ResponseBody
     @DeleteMapping(path = "/{idProfession}/{idCcPerson}/{database}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public EstudioResponse eliminarEstudio(@PathVariable String idProfession, @PathVariable String idCcPerson, @PathVariable String database) throws InvalidOptionException {
+    public EstudioResponse eliminarEstudio(@PathVariable int idProfession, @PathVariable int idCcPerson, @PathVariable String database) throws InvalidOptionException {
         log.info("Into deleteStudy method in StudyControllerV1");
         return studyInputAdapterRest.eliminarEstudio(database, idProfession, idCcPerson);
     }
 
     @ResponseBody
     @GetMapping(path = "/{idProfession}/{idCcPerson}/{database}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public EstudioResponse estudio(@PathVariable String idProfession, @PathVariable String idCcPerson, @PathVariable String database) {
+    public EstudioResponse estudio(@PathVariable int idProfession, @PathVariable int idCcPerson, @PathVariable String database) {
         log.info("Into findStudy method in StudyControllerV1");
         return studyInputAdapterRest.buscarEstudio(database, idProfession, idCcPerson);
     }

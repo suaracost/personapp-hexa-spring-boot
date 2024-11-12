@@ -6,7 +6,7 @@ public class ProfesionResponse extends ProfesionRequest{
 	
 	private String status;
 	
-	public ProfesionResponse(String identification, String name, String description, String database, String status) {
+	public ProfesionResponse(int identification, String name, String description, String database, String status) {
 		super(identification, name, description, database);
 		this.status = status;
 	}

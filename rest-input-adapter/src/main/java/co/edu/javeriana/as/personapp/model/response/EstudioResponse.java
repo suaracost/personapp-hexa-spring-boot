@@ -8,7 +8,7 @@ public class EstudioResponse extends EstudioRequest{
     
     private String status;
     
-    public EstudioResponse(String idProfession, String idCcPerson, LocalDate graduationDate, String university, String database, String status) {
+    public EstudioResponse(int idProfession, int idCcPerson, LocalDate graduationDate, String university, String database, String status) {
         super(idProfession, idCcPerson, graduationDate, university, database);
         this.status = status;
     }

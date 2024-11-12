@@ -97,10 +97,10 @@ public class ProfesionInputAdapterRest {
 			}
 		} catch (InvalidOptionException e) {
 			log.warn(e.getMessage());
-			return new ProfesionResponse(idInteger.toString(), "", "", database, "Error: Invalid Database Option");
+			return new ProfesionResponse(idInteger, "", "", database, "Error: Invalid Database Option");
 		} catch (NoExistException e) {
 			log.warn(e.getMessage());
-			return new ProfesionResponse(idInteger.toString(), "", "", database, "Error: Profession not found");
+			return new ProfesionResponse(idInteger, "", "", database, "Error: Profession not found");
 		}
 	}
 	
@@ -111,13 +111,13 @@ public class ProfesionInputAdapterRest {
 			setProfessionOutputPortInjection(database);
 			Boolean eliminado = professionInputPort.drop(idInteger);
 	
-			return new ProfesionResponse(idInteger.toString(), "", "", database, eliminado ? "Deleted" : "Failed to Delete");
+			return new ProfesionResponse(idInteger, "", "", database, eliminado ? "Deleted" : "Failed to Delete");
 		} catch (InvalidOptionException e) {
 			log.warn(e.getMessage());
-			return new ProfesionResponse(idInteger.toString(), "", "", database, "Error: Invalid Database Option");
+			return new ProfesionResponse(idInteger, "", "", database, "Error: Invalid Database Option");
 		} catch (NoExistException e) {
 			log.warn(e.getMessage());
-			return new ProfesionResponse(idInteger.toString(), "", "", database, "Error: Profession not found");
+			return new ProfesionResponse(idInteger, "", "", database, "Error: Profession not found");
 		}
 	}
 	
@@ -126,7 +126,7 @@ public class ProfesionInputAdapterRest {
 		log.info("Into actualizarProfesion ProfessionEntity in Input Adapter");
 		try {
 			setProfessionOutputPortInjection(request.getDatabase());
-			Profession profession = professionInputPort.edit(Integer.parseInt(request.getIdentification()), professionMapperRest.fromAdapterToDomain(request));
+			Profession profession = professionInputPort.edit(request.getIdentification(), professionMapperRest.fromAdapterToDomain(request));
 	
 			if (request.getDatabase().equalsIgnoreCase(DatabaseOption.MARIA.toString())) {
 				return professionMapperRest.fromDomainToAdapterRestMaria(profession);

@@ -117,7 +117,7 @@ public class EstudioInputAdapterRest {
             log.info("Output port injection set for database: {}", request.getDatabase());
     
             log.info("Fetching person with ID: {}", request.getIdCcPerson());
-            Person person = personInputPort.findOne(Integer.parseInt(request.getIdCcPerson()));
+            Person person = personInputPort.findOne(request.getIdCcPerson());
             if (person == null) {
                 log.warn("Person with ID {} not found", request.getIdCcPerson());
                 return new EstudioResponse(request.getIdProfession(), request.getIdCcPerson(), request.getGraduationDate(), 
@@ -126,7 +126,7 @@ public class EstudioInputAdapterRest {
             log.info("Person retrieved successfully: {}", person);
     
             log.info("Fetching profession with ID: {}", request.getIdProfession());
-            Profession profession = professionInputPort.findOne(Integer.parseInt(request.getIdProfession()));
+            Profession profession = professionInputPort.findOne(request.getIdProfession());
             if (profession == null) {
                 log.warn("Profession with ID {} not found", request.getIdProfession());
                 return new EstudioResponse(request.getIdProfession(), request.getIdCcPerson(), request.getGraduationDate(), 
@@ -162,10 +162,10 @@ public class EstudioInputAdapterRest {
     }
     
 
-    public EstudioResponse buscarEstudio(String database, String idProfession, String idCcPerson) {
+    public EstudioResponse buscarEstudio(String database, int idProfession, int idCcPerson) {
         try {
             setStudyOutputPortInjection(database);
-            Study study = studyInputPort.findOne(Integer.parseInt(idProfession), Integer.parseInt(idCcPerson));
+            Study study = studyInputPort.findOne(idProfession, idCcPerson);
             if (database.equalsIgnoreCase(DatabaseOption.MARIA.toString())) {
                 return studyMapperRest.fromDomainToAdapterRestMaria(study);
             } else {
@@ -178,10 +178,10 @@ public class EstudioInputAdapterRest {
     }
 
 
-    public EstudioResponse eliminarEstudio(String database, String idProfession, String idCcPerson) {
+    public EstudioResponse eliminarEstudio(String database, int idProfession, int idCcPerson) {
         try {
             setStudyOutputPortInjection(database);
-            Boolean eliminado = studyInputPort.drop(Integer.parseInt(idProfession), Integer.parseInt(idCcPerson));
+            Boolean eliminado = studyInputPort.drop(idProfession, idCcPerson);
             return new EstudioResponse(idProfession, idCcPerson, null, "", database, eliminado ? "Deleted" : "Failed to Delete");
         } catch (InvalidOptionException | NoExistException e) {
             log.warn(e.getMessage());
@@ -193,11 +193,11 @@ public class EstudioInputAdapterRest {
     public EstudioResponse actualizarEstudio(EstudioRequest request) {
         try {
             setStudyOutputPortInjection(request.getDatabase());
-            Person person = personInputPort.findOne(Integer.parseInt(request.getIdCcPerson()));
-            Profession profession = professionInputPort.findOne(Integer.parseInt(request.getIdProfession()));
+            Person person = personInputPort.findOne(request.getIdCcPerson());
+            Profession profession = professionInputPort.findOne(request.getIdProfession());
             
             // Update study with profession and person as inputs
-            Study study = studyInputPort.edit(Integer.parseInt(request.getIdProfession()), Integer.parseInt(request.getIdCcPerson()),
+            Study study = studyInputPort.edit(request.getIdProfession(), request.getIdCcPerson(),
                                               studyMapperRest.fromAdapterToDomain(request, profession, person));
             
             if (request.getDatabase().equalsIgnoreCase(DatabaseOption.MARIA.toString())) {

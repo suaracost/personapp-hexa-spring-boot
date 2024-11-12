@@ -26,20 +26,20 @@ public class EstudioMapperRest {
         log.info("Into fromDomainToAdapterRest with study: {}", study);
         if (study == null) {
             log.error("Study object is null.");
-            return new EstudioResponse(null, null, null, null, database, "Error: Study is null");
+            return new EstudioResponse(0, 0, null, null, database, "Error: Study is null");
         }
         if (study.getPerson() == null) {
             log.error("Person is null in Study object.");
-            return new EstudioResponse(null, null, study.getGraduationDate(), study.getUniversityName(), database, "Error: Person is null in Study");
+            return new EstudioResponse(0, 0, study.getGraduationDate(), study.getUniversityName(), database, "Error: Person is null in Study");
         }
         if (study.getProfession() == null) {
             log.error("Profession is null in Study object.");
-            return new EstudioResponse(study.getPerson().getIdentification() + "", null, study.getGraduationDate(), study.getUniversityName(), database, "Error: Profession is null in Study");
+            return new EstudioResponse(study.getPerson().getIdentification(), 0, study.getGraduationDate(), study.getUniversityName(), database, "Error: Profession is null in Study");
         }
     
         return new EstudioResponse(
-            study.getProfession().getIdentification() + "",
-            study.getPerson().getIdentification() + "",
+            study.getProfession().getIdentification(),
+            study.getPerson().getIdentification(),
             study.getGraduationDate(),
             study.getUniversityName(),
             database,

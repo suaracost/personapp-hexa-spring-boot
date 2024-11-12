@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstudioRequest {
-    private String idProfession;
-    private String idCcPerson;
+    private int idProfession;
+    private int idCcPerson;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate graduationDate;
     private String university;

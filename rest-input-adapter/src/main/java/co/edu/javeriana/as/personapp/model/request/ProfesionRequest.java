@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfesionRequest {
 
-    private String identification;
+    private int identification;
     private String name;
     private String description;
     private String database;
